@@ -8,11 +8,14 @@
 
 #include "sash.h"
 
+typedef unsigned uid_t;
+
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <dirent.h>
 #include <utime.h>
 
+#include "port/fcntl.h"
 
 /*
  * A chunk of data.
@@ -1119,11 +1122,11 @@ fullRead(int fd, char * buf, int len)
 int
 trySystem(const char * cmd)
 {
-	int status;
+	int status = 0;
 
-	status = system(cmd);
+//	status = system(cmd);
 
-	if (status == -1)
+//	if (status == -1)
 		fprintf(stderr, "Error starting command: %s\n", cmd);
 
 	return status;

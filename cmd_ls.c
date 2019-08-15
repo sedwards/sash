@@ -6,6 +6,8 @@
  * The "ls" built-in command.
  */
 
+typedef unsigned uid_t;
+
 #include "sash.h"
 
 #include <sys/types.h>

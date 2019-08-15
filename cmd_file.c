@@ -6,6 +6,7 @@
  * The "file" built-in command.
  */
 
+typedef unsigned uid_t;
 #include <ctype.h>
 #include <errno.h>
 #include <sys/types.h>
@@ -13,6 +14,7 @@
 
 #include "sash.h"
 
+#include "port/fcntl.h"
 
 static const char *	checkFile(const char * name);
 

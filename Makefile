@@ -18,8 +18,10 @@
 # and -ls commands.
 #
 
+CC=gcc
+
 HAVE_GZIP		= 0
-ifeq (Linux,$(shell uname -s))
+#ifeq (Linux,$(shell uname -s))
 HAVE_LINUX_ATTR		= 0
 HAVE_LINUX_CHROOT	= 0
 HAVE_LINUX_LOSETUP	= 0
@@ -27,7 +29,7 @@ HAVE_LINUX_PIVOT	= 0
 HAVE_LINUX_MOUNT	= 0
 HAVE_BSD_MOUNT		= 0
 MOUNT_TYPE		= '"ext3"'
-endif
+#endif
 ifeq (GNU/kFreeBSD,$(shell uname -s))
 HAVE_LINUX_ATTR	= 0
 HAVE_LINUX_CHROOT	= 0
@@ -41,6 +43,9 @@ endif
 OPT = -O0
 
 CFLAGS = $(OPT) -Wall -Wmissing-prototypes \
+	-I/sysroot/usr/include \
+	-I../musl/include \
+	-I../musl/arch/arm \
 	-DHAVE_GZIP=$(HAVE_GZIP) \
 	-DHAVE_LINUX_ATTR=$(HAVE_LINUX_ATTR) \
  	-DHAVE_LINUX_CHROOT=$(HAVE_LINUX_CHROOT) \
@@ -48,10 +53,11 @@ CFLAGS = $(OPT) -Wall -Wmissing-prototypes \
  	-DHAVE_LINUX_PIVOT=$(HAVE_LINUX_PIVOT) \
 	-DHAVE_LINUX_MOUNT=$(HAVE_LINUX_MOUNT) \
 	-DHAVE_BSD_MOUNT=$(HAVE_BSD_MOUNT) \
-	-DMOUNT_TYPE=$(MOUNT_TYPE)
+	-DMOUNT_TYPE=$(MOUNT_TYPE) \
+	-march=armv7ve -mcpu=cortex-a7 -mthumb -mfpu=neon -mfloat-abi=hard
 
-LDFLAGS = -static
-LIBS = -lz
+LDFLAGS = --sysroot=/sysroot -Wl,--no-undefined -nodefaultlibs -B "/sysroot/tools/gcc/" -march=armv7ve -mcpu=cortex-a7 -mthumb -mfpu=neon -mfloat-abi=hard
+LIBS = -L/sysroot/usr/lib -lapplibs -lpthread -lgcc_s -lc
 
 
 DESTDIR =
@@ -60,7 +66,7 @@ MANDIR = /usr/man
 
 
 OBJS = sash.o cmds.o cmd_dd.o cmd_ed.o cmd_grep.o cmd_ls.o cmd_tar.o \
-	cmd_gzip.o cmd_find.o cmd_file.o cmd_chattr.o cmd_ar.o utils.o
+	cmd_gzip.o cmd_find.o cmd_file.o cmd_chattr.o cmd_ar.o utils.o stubs.o
 
 
 sash:	$(OBJS)

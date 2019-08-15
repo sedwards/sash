@@ -6,6 +6,9 @@
  * Most simple built-in commands are here.
  */
 
+#include <stdio.h>
+
+typedef unsigned uid_t;
 #include "sash.h"
 
 #include <sys/types.h>
@@ -16,6 +19,10 @@
 #include <grp.h>
 #include <utime.h>
 #include <errno.h>
+
+#include <unistd.h>
+
+#include "port/fcntl.h"
 
 #if	HAVE_LINUX_MOUNT
 #include <linux/fs.h>

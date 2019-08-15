@@ -6,6 +6,7 @@
  * The "find" built-in command.
  */
 
+typedef unsigned uid_t;
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <dirent.h>

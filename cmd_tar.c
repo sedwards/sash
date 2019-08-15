@@ -6,7 +6,7 @@
  * The "tar" built-in command.
  * This allows creation, extraction, and listing of tar files.
  */
-
+typedef unsigned uid_t;
 #include "sash.h"
 
 #include <sys/types.h>
@@ -14,6 +14,7 @@
 #include <dirent.h>
 #include <errno.h>
 
+#include "port/fcntl.h"
 
 /*
  * Tar file constants.

@@ -8,6 +8,7 @@
  */
 
 #include <sys/types.h>
+typedef unsigned uid_t;
 #include <sys/wait.h>
 #include <signal.h>
 #include <errno.h>
@@ -542,8 +543,8 @@ main(int argc, const char ** argv)
 	/*
 	 * Default our path if it is not set.
 	 */
-	if (getenv("PATH") == NULL)
-		putenv("PATH=/bin:/usr/bin:/sbin:/usr/sbin:/etc");
+//	if (getenv("PATH") == NULL)
+//		putenv("PATH=/bin:/usr/bin:/sbin:/usr/sbin:/etc");
 
 	/*
 	 * If the alias flag is set then define all aliases.
@@ -562,13 +563,13 @@ main(int argc, const char ** argv)
 	/*
 	 * Print a hello message unless we are told to be silent.
 	 */
-	if (!quietFlag && isatty(STDIN))
-	{
+//	if (!quietFlag && isatty(STDIN))
+//	{
 		printf("Stand-alone shell (version %s)\n", version);
 
 		if (aliasFlag)
 			printf("Built-in commands are aliased to standard commands\n");
-	}
+//	}
 
 	signal(SIGINT, catchInt);
 	signal(SIGQUIT, catchQuit);

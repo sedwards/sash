@@ -13,6 +13,7 @@
  * This allows extraction and listing of ar files.
  */
 
+typedef unsigned uid_t;
 #include <ar.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -26,6 +27,7 @@
 
 #include "sash.h"
 
+#include "port/fcntl.h"
 
 /*
  * Structure to hold information about the archive file.
